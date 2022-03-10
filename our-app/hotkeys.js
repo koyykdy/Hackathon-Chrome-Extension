@@ -21,7 +21,7 @@
 const copyPasteHandler = {
   handleCopy: (slotNum) => {
     // save to slot num in permanent storage
-    console.log("inside handleCopy")
+    // console.log("inside handleCopy")
     async function getCurentTab() {
       let queryOptions = { active: true, currentWindow: true };
       let [tab] = await chrome.tabs.query(queryOptions);
@@ -29,8 +29,6 @@ const copyPasteHandler = {
     }
     // const currentTab = 
     getCurentTab().then((currentTab) => {
-      console.log(currentTab);
-
       function getSelection() {
         return window.getSelection().toString();
       }
@@ -47,10 +45,12 @@ const copyPasteHandler = {
           const stringSelected = selection[0].result;
           // console.log(typeof stringSelected);
           const strSlotNum = String(slotNum);
-          chrome.storage.local.set({strSlotNum: stringSelected}, function() {
-            chrome.storage.local.get([strSlotNum], (response) => {
-              console.log(response);
-              console.log(`Selection saved in slot ${slotNum}: `, stringSelected);
+          const setObj = {};
+          setObj[strSlotNum] = stringSelected;
+          chrome.storage.local.set(setObj, function() {
+            chrome.storage.local.get(strSlotNum, (response) => {
+              // console.log(response);
+              console.log(`Selection saved in slot ${slotNum}: ` + response[strSlotNum]);
             })
           });
         }
@@ -79,10 +79,44 @@ const copyPasteHandler = {
   },
   handlePaste: (slotNum) => {
     // paste from slot num in permanent storage
-    const strSlotNum = String(slotNum);
-    chrome.storage.local.get([strSlotNum], (response) => { // response = {slotNumber: 'string data'}
+    const strSlotNum = String(slotNum); // object = {'strSlotNum' : 'the stuff'}, object['1']
+    chrome.storage.local.get(strSlotNum, (response) => { // response = {slotNumber: 'string data'}
       // do something with the response object
-      console.log(response); // [String(slotNum)]
+      const strResponse = response[strSlotNum];
+      // console.log(`Accessing value saved in slot ${slotNum}: ` + strResponse); 
+      // paste into the current tab where the user is selected, the strResponse
+      // `document.querySelector(":focus").textContent += ${strResponse};`
+      async function getCurentTab() {
+        let queryOptions = { active: true, currentWindow: true };
+        let [tab] = await chrome.tabs.query(queryOptions);
+        return tab;
+      }
+
+      getCurentTab().then((currentTab) => {
+
+        function pasteText(pasteText) {
+          const focusedEl = document.activeElement;
+          // console.log(focusedEl);
+          focusedEl.value += pasteText;
+        }
+    
+        chrome.scripting.executeScript( 
+          {
+            args: [strResponse],
+            target: {tabId: currentTab.id}, 
+            func: pasteText
+          }, 
+          (returned) => {
+            /**
+              window.addEventListener('focus', function(e) {
+                  if (e.target.id) console.log(e.target.id)
+              }, true);
+             */
+            // console log that we successfully pasted what we did
+            console.log(`Pasted text from ${slotNum}: ` + strResponse);
+          }
+        );
+      });
     });
   }
 };
