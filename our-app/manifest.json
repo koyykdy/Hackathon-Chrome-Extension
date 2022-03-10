@@ -26,6 +26,20 @@
         "mac": "Alt+1"
       },
       "description": "Paste text from slot 1"
+    },
+    "multi-copy2": {
+      "suggested_key": {
+        "default": "Alt+Shift+2",
+        "mac": "Alt+Shift+2"
+      },
+      "description": "Copy currently selected text to slot 2"
+    },
+    "multi-paste2": {
+      "suggested_key": {
+        "default": "Alt+2",
+        "mac": "Alt+2"
+      },
+      "description": "Paste text from slot 2"
     }
   },
   "action": {
