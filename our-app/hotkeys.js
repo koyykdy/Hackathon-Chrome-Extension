@@ -83,18 +83,18 @@ chrome.commands.onCommand.addListener((command) => {
     case 'multi-paste2':
       copyPasteHandler.handlePaste(2);
       break;
-    // case 'multi-copy3':
-    //   copyPasteHandler.handleCopy(3);
-    //   break;
-    // case 'multi-paste3':
-    //   copyPasteHandler.handlePaste(3);
-    //   break;
-    // case 'multi-copy4':
-    //   copyPasteHandler.handleCopy(4);
-    //   break;
-    // case 'multi-paste4':
-    //   copyPasteHandler.handlePaste(4);
-    //   break;
+    case 'multi-copy3':
+      copyPasteHandler.handleCopy(3);
+      break;
+    case 'multi-paste3':
+      copyPasteHandler.handlePaste(3);
+      break;
+    case 'multi-copy4':
+      copyPasteHandler.handleCopy(4);
+      break;
+    case 'multi-paste4':
+      copyPasteHandler.handlePaste(4);
+      break;
     default:
       console.log('ERROR: Unexpected command encountered!\n');
   }

@@ -1,6 +1,6 @@
 {
-  "name": "Getting Started Example",
-  "description": "Build an Extension!",
+  "name": "Multicopy",
+  "description": "Copy up to four pieces of text into individual slots, then paste them at your command!",
   "version": "1.0",
   "manifest_version": 3,
   "background": {
@@ -40,22 +40,38 @@
         "mac": "Alt+2"
       },
       "description": "Paste text from slot 2"
+    },
+    "multi-copy3": {
+
+      "description": "Copy currently selected text to slot 3"
+    },
+    "multi-paste3": {
+
+      "description": "Paste text from slot 3"
+    },
+    "multi-copy4": {
+
+      "description": "Copy currently selected text to slot 4"
+    },
+    "multi-paste4": {
+
+      "description": "Paste text from slot 4"
     }
   },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
-    "16": "/images/get_started16.png",
-    "32": "/images/get_started32.png",
-    "48": "/images/get_started48.png",
-    "128": "/images/get_started128.png"
+    "16": "/images/Muticopy-logo-16.png",
+    "32": "/images/Muticopy-logo-32.png",
+    "48": "/images/Muticopy-logo-48.png",
+    "128": "/images/Muticopy-logo-128.png"
     }
   },
   "icons": {
-    "16": "/images/get_started16.png",
-    "32": "/images/get_started32.png",
-    "48": "/images/get_started48.png",
-    "128": "/images/get_started128.png"
+    "16": "/images/Muticopy-logo-16.png",
+    "32": "/images/Muticopy-logo-32.png",
+    "48": "/images/Muticopy-logo-48.png",
+    "128": "/images/Muticopy-logo-128.png"
   },
   "options_page": "options.html"
 }
